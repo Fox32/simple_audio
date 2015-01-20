@@ -24,6 +24,7 @@ part of simple_audio;
  */
 class AudioClip {
   static const SFXR_PREFIX = "sfxr:";
+  static const BLOB_PREFIX = "blob:";
 
   final AudioManager _manager;
   String _name;
@@ -123,7 +124,7 @@ class AudioClip {
     }
     var request = new HttpRequest();
     var completer = new Completer<AudioClip>();
-    if (_urlAbsolute) {
+    if (_urlAbsolute || url.startsWith(BLOB_PREFIX)) {
       request.open('GET', url);
     } else {
       request.open('GET', '${_manager.baseURL}/$url');
